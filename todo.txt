@@ -1,0 +1,47 @@
+Panes
+====
+
+A window manager for os x
+
+
+
+* https://koekeishiya.github.io/chunkwm/
+* probably the best thing is to learn ameythist first
+    * it has most of what i want i think, but is so un-mac-like
+* what if I had an app that was just a container for other apps. It showed up in cmd-tab but was a container that had three or four windows in it?
+* what I like about amythist is that you can move things around in a pattern
+* being able to designate a set of intereseting windows (terminal, sublime, browser) and then have them all where i want them is a lot ofit.
+    * bind windows together, so that when one is brought to top, the other is brought to top-1
+* two (maybe three? but two almost always...) slots that are re-sizeable, and each on is a tab bar with cmd MRU at least to cycle through other windows.
+* ugh, why is nothing good.
+* oh god, i want my spaces to have spaces. I want app-tabs and to be able to keep one on one side and switch between two on the other?
+* or i want window views. where the same window can be in two spaces.
+
+
+OK I want to make windowsets.
+you can probably pin the to top
+
+
+Actions (key combos?)
+* new windowset
+* add window to windowset N
+    * frontmost?
+    * next window you click on, with highlighting following mouse?
+    * press, highlight with mouse, release?
+* remove window from windowset N
+* arrange windows in windowset N
+    * triiiicky. nothing will be as nice as sliding two windows in full screen, but something like it
+    * tile other windows other than the one you just touched? other than frontmost?
+* swap window in windowset?
+* clone windowset
+* switch focus w/in the set. crucial.
+    * if a set is pinned, you could hijack cmd-tab?
+* pin to top -- really? for a single window could be nice, still use the other space. could be clunky.
+
+use highlighting to indicate which windows are a thing, maybe color to indicate set?
+
+I think v1 is just making a set and thing bringing it frontmost when you do the thing
+
+can watch windows for changes. keep track of which one was last frontmost...
+
+Write a test that just loads some window groups on reload.
