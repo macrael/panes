@@ -1,9 +1,53 @@
 Panes
 ====
+x add frontmost window to set
+x bring all windows in set frontmost
+x make it a set
+x remove window from set
+x show/fade set indicators
+x if one of the windows in the set is currently frontmost, don't fux with that.
+x-for now- looks like raise often doesn't do the thing? I have to hit it twice to get it on top... focus first helped.
+x break it out of the main config file. (spoon?)
+    * break out widowset into its own file
+* use a layout?
+* how do we add a window?
+	* do a highlight fade when a window is added as a visual feedback that something happened
+* change focus to other window(s)
+* multiple window sets?
+* what happens if you close a window?
+	* prob need to watch for that.
+* might want to update the list every time you focus a window.
+* if the app is hidden it doesn't raise it.
+
+
+* make hilights work across displays!
+* write these functions so that they operate on a set, should carry over to multiple sets.
+* One windowset is "active" at a time
+	* this lets you bring it frontmost with a click (might be the same number based click that activated it)
+	* lets you cycle through those windows
+	* some sort of permament hilight is drawn in the window's menubar? or somethign.
+
+* could this swap out windows in a full screen thing?
+	* doesn't look like it, rn.
 
 A window manager for os x
 
+window pain
+window pains
+panes
+pane
+frame
+sill
+Mullion
+Grilles
+muntins -- this is the divider beween window panes
+window sash
+https://www.renewalbyandersen.com/homeowner-help/glossary
 
+UI
+--
+* could have a separate menu bar thing for each set
+* New set button
 
 * https://koekeishiya.github.io/chunkwm/
 * probably the best thing is to learn ameythist first
@@ -45,3 +89,12 @@ I think v1 is just making a set and thing bringing it frontmost when you do the 
 can watch windows for changes. keep track of which one was last frontmost...
 
 Write a test that just loads some window groups on reload.
+
+
+
+
+HS TOOLS
+https://www.hammerspoon.org/docs/hs.expose.html lets you show thumbnails of windows and pick them easily
+https://www.hammerspoon.org/docs/hs.layout.html
+https://www.hammerspoon.org/docs/hs.menubar.html
+https://www.hammerspoon.org/docs/hs.settings.html
