@@ -8,7 +8,19 @@ x show/fade set indicators
 x if one of the windows in the set is currently frontmost, don't fux with that.
 x-for now- looks like raise often doesn't do the thing? I have to hit it twice to get it on top... focus first helped.
 x break it out of the main config file. (spoon?)
-    * break out widowset into its own file
+    x break out widowset into its own file
+* visual indication of saving a window
+* button to cycle through windows (send to back)
+    * key to bring set forward
+    * key again to send to back of set
+    * monitor switch apps and switch windows to reset
+    * only cycle if all windows are already raised to be right next to the focused window and the focused window is one of us.
+        * is there another way?
+        * you hit bring forward, enter a mode
+        * you leave the mode if:
+            * alt tab to another app
+            * cmd ~ to another window (not in the WS? not the next in the WS?
+            * in order to faithfully maintain the z order, it's probably best to do the event tapstuff, but i'll start with the slow version.
 * use a layout?
 * how do we add a window?
 	* do a highlight fade when a window is added as a visual feedback that something happened
@@ -17,7 +29,8 @@ x break it out of the main config file. (spoon?)
 * what happens if you close a window?
 	* prob need to watch for that.
 * might want to update the list every time you focus a window.
-* if the app is hidden it doesn't raise it.
+* if the app is hidden it doesn't raise it, have to hit the button twice.
+* button to clear the current set.
 
 
 * make hilights work across displays!
@@ -25,6 +38,7 @@ x break it out of the main config file. (spoon?)
 * One windowset is "active" at a time
 	* this lets you bring it frontmost with a click (might be the same number based click that activated it)
 	* lets you cycle through those windows
+        * could jsut use current z order for focus.
 	* some sort of permament hilight is drawn in the window's menubar? or somethign.
 
 * could this swap out windows in a full screen thing?
