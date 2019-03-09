@@ -59,34 +59,64 @@ function WindowSet:focus()
     return
   end
 
+  -- windows are in order, top most at the end of the list.
+
+  local allOrderedWindows = hs.window.orderedWindows()
+  print(allOrderedWindows)
+
+  local orderedWindowSet = {}
+
+  local foundCount = 0
+  local shouldCycle = false
+  for i, oWin in ipairs(allOrderedWindows) do
+    print(oWin)
+    print(oWin:id())
+
+    for i, setWin in ipairs(self._windows) do
+      if oWin:id() == setWin:id() then
+        table.insert(orderedWindowSet, oWin)
+      end
+
+    end
+
+    print(i)
+    print(foundCount)
+
+    if #orderedWindowSet == #self._windows then
+      if #orderedWindowSet == i then
+        -- All of them are on top
+        shouldCycle = true
+      end
+      break
+    end
+  end
+
+  -- if we should cycle, then we make the frontmost one the rearmost.
+  if shouldCycle then
+    local frontMost = table.remove(orderedWindowSet, 1)
+    table.insert(orderedWindowSet, frontMost)
+  end
+
   -- raise all windows but the last in the current order
   -- focus the last
   -- if one of the windows is currently focused, focus it instead
-  -- if all the windows are already on top (already focused) then cycle, sending front to back
-	for i, win in ipairs(self._windows) do
+
+  -- first, focus the front most
+  orderedWindowSet[1]:focus()
+
+  -- then raise the rest of them.
+  for i = #orderedWindowSet, 1, -1 do
+	-- for i, win in ipairs(self._windows) do
+    local win = orderedWindowSet[i]
     print(win)
-    print(win:role())
-    print(win:subrole())
-    if win:id() == focusedID then
-      focusWindow = win
-    elseif i == #self._windows and focusWindow == nil then
-      focusWindow = win
-    else
-      table.insert(raiseWindows, win)
+
+    if i ~= 1 then
+      win:raise()
     end
-	end
-
-  focusWindow:focus()
-
-  for i, win in ipairs(raiseWindows) do
-    win:raise()
   end
 
 end
 
-function WindowSet:sendToBack()
-
-end
 
 function WindowSet:showIndicators()
   local HACKPrimaryScreen = hs.screen.primaryScreen()
