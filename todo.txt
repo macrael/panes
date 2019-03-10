@@ -9,12 +9,27 @@ x if one of the windows in the set is currently frontmost, don't fux with that.
 x-for now- looks like raise often doesn't do the thing? I have to hit it twice to get it on top... focus first helped.
 x break it out of the main config file. (spoon?)
     x break out widowset into its own file
-* visual indication of saving a window
+x visual indication of saving a window
 * button to cycle through windows (send to back)
     * key to bring set forward
     * key again to send to back of set
     * monitor switch apps and switch windows to reset
     * only cycle if all windows are already raised to be right next to the focused window and the focused window is one of us.
+        * This sucks. Send to back SUCKS
+            * jumpy
+            * cross apps changes the order (raise comes in front/behind where it should.)
+        * instead we need a cycle...
+        * hit raise
+            * we do the bullshit to get everything frontmost. (in the current z order?)
+            * then we just start cycling?
+            * if you click on a thing, it jumps to the front of the cycle?
+                * reset the cycle order if you click on a window?
+                    * that's the most annoying part!
+                    * but its the only option
+                    * am I going to want shift click as well?, probs for reverse.
+
+        * hit raise again
+
         * is there another way?
         * you hit bring forward, enter a mode
         * you leave the mode if:
@@ -31,6 +46,7 @@ x break it out of the main config file. (spoon?)
 * might want to update the list every time you focus a window.
 * if the app is hidden it doesn't raise it, have to hit the button twice.
 * button to clear the current set.
+* should a window set use a window filter as a storage method?
 
 
 * make hilights work across displays!
