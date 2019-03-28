@@ -62,6 +62,11 @@ function Panes:removeTopWindowFromSet()
   OneWindowSet:showIndicators()
 end
 
+function Panes:removeAllWindowsFromSet()
+  print("REMOVING ALL")
+  OneWindowSet:removeAll()
+end
+
 
 function Panes:bindHotkeys(mapping)
    if mapping["hello"] then
@@ -97,6 +102,13 @@ function Panes:bindHotkeys(mapping)
          self.key_removeTopWindowFromSet:delete()
       end
       self.key_removeTopWindowFromSet = hs.hotkey.bindSpec(mapping["removeTopWindowFromSet"], Panes.removeTopWindowFromSet)
+   end
+
+   if mapping["removeAllWindowsFromSet"] then
+      if (self.key_removeAllWindowsFromSet) then
+         self.key_removeAllWindowsFromSet:delete()
+      end
+      self.key_removeAllWindowsFromSet = hs.hotkey.bindSpec(mapping["removeAllWindowsFromSet"], Panes.removeAllWindowsFromSet)
    end
 
 end

@@ -50,6 +50,19 @@ function WindowSet:remove(window)
 
 end
 
+function WindowSet:removeAll()
+
+  self._windows = {}
+  self._upTop = false
+  if self._watcherfn ~= nil then
+    self:_stopWatcher()
+  end
+  self._currentRaise = nil
+
+  print("Zeroed out")
+
+end
+
 
   -- windows are in order, top most at the end of the list.
 
