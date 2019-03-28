@@ -10,7 +10,7 @@ x-for now- looks like raise often doesn't do the thing? I have to hit it twice t
 x break it out of the main config file. (spoon?)
     x break out widowset into its own file
 x visual indication of saving a window
-* button to cycle through windows (send to back)
+* button to cycle through windows (send to back :/)
     * key to bring set forward
     * key again to send to back of set
     * monitor switch apps and switch windows to reset
@@ -36,17 +36,27 @@ x visual indication of saving a window
             * alt tab to another app
             * cmd ~ to another window (not in the WS? not the next in the WS?
             * in order to faithfully maintain the z order, it's probably best to do the event tapstuff, but i'll start with the slow version.
+x button to clear the current set.
 * use a layout?
+* setting up the event tap might be taking a minute the first time?? BUG
 * how do we add a window?
 	* do a highlight fade when a window is added as a visual feedback that something happened
-* change focus to other window(s)
 * multiple window sets?
 * what happens if you close a window?
 	* prob need to watch for that.
 * might want to update the list every time you focus a window.
 * if the app is hidden it doesn't raise it, have to hit the button twice.
-* button to clear the current set.
 * should a window set use a window filter as a storage method?
+* annoying when in a set for other stuff to jump in. Might want to always bring them front as a group until the spell is broken?
+* when focusing a window in the set, always bring up the other windows in the set.
+
+
+TESTING
+* can mock HS and Window fairly well
+    * probably go for it and actually try that and see how it is
+* Can't call hs from the test itslef, it seems, so has to be triggered by hs itself
+    * real testing would create windows and move them around
+    * probably want this too? but it's much more invasive, slower loop.
 
 
 * make hilights work across displays!
