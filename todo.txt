@@ -51,6 +51,18 @@ x button to clear the current set.
 * when focusing a window in the set, always bring up the other windows in the set.
 
 
+* I think I need to remove these from the filter:
+    wfilter: No accessibility access to app Mail Networking (no watcher pid)
+    wfilter: No accessibility access to app Messages Networking (no watcher pid)
+    wfilter: No accessibility access to app com.apple.hiservices-xpcservice (no watcher pid)
+    wfilter: No accessibility access to app Finder Networking (no watcher pid)
+    wfilter: No accessibility access to app Signal Helper (no watcher pid)
+    wfilter: No accessibility access to app Shush (no watcher pid)
+    wfilter: No accessibility access to app WhatsApp Helper (no watcher pid)
+    wfilter: No accessibility access to app krisp Networking (no watcher pid)
+    wfilter: No accessibility access to app NetNewsWire Networking (no watcher pid)
+
+
 TESTING
 * can mock HS and Window fairly well
     * probably go for it and actually try that and see how it is

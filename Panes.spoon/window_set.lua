@@ -3,31 +3,30 @@ local WindowSet = {}
 
 function WindowSet:new()
 	local ws = { _windows = {},  -- the list of windows in the set in order
+                    _realOrder = {},
                     _upTop = false,  -- the current mode, are we cycling or not
                     _watcherfn = nil,  -- the function doing the watching
                     _currentRaise = nil } -- the current window being raised so the watcher can ignore it
 
   setmetatable(ws, self)
   self.__index = self
+  ws:_startWatcher()
+
   return ws
 end
 
 function WindowSet:add(window)
 	print('add', window)
 
-  local extantIndex = nil
-  for i, win in ipairs(self._windows) do
-    if win:id() == window:id() then
-      extantIndex = i
-      break
-    end
+  if self:_contains(window) then
+    -- we should already have it at the right place.
+    return
   end
 
-  if extantIndex then
-    table.remove(self._windows, extantIndex)
-  end
+  table.insert(self._windows, window, 1)
+  table.insert(self._realOrder, window, 1)
 
-  table.insert(self._windows, window)
+  -- should probably reset order here?
 
 end
 
@@ -48,15 +47,27 @@ function WindowSet:remove(window)
     print("TRIED TO REMOVE WINDOW NOT IN LIST")
   end
 
+  extantIndex = nil
+  for i, win in ipairs(self._realOrder) do
+    if win:id() == window:id() then
+      extantIndex = i
+      break
+    end
+  end
+
+  if extantIndex then
+    table.remove(self._realOrder, extantIndex)
+  else
+    print("TRIED TO REMOVE WINDOW NOT IN LIST")
+  end
+
 end
 
 function WindowSet:removeAll()
 
   self._windows = {}
+  self._realOrder = {}
   self._upTop = false
-  if self._watcherfn ~= nil then
-    self:_stopWatcher()
-  end
   self._currentRaise = nil
 
   print("Zeroed out")
@@ -121,12 +132,19 @@ end
   -- one of the windows not in the set is focused:
    -- set mode: LOW, stop listening
 
+
+------- AVOID THE WINDOW CHECK
+
+-- set the "made frontmost" tap on creation
+-- every time we add a window, we put it on the top of our list of windows
+-- we maintain actual order and cycle order.
+-- any time a window that isn't ours is put frontmost, we save the actual order.
+
+
+
 --------
 
 function WindowSet:focus()
-  local focusedID = hs.window.focusedWindow():id() -- unclear if this is a good idea still.
-  local focusWindow = nil
-  local raiseWindows = {}
 
   if #self._windows == 0 then
     print("Nothing to return")
@@ -135,30 +153,21 @@ function WindowSet:focus()
 
   if not self._upTop then
 
-
-    local shouldCycle = self:_resetOrder()
-
-    if shouldCycle then
-      print("We have not initiated the thiiiing, but you're already on top...")
-    end
-
     -- raise all windows but the last in the current order
     -- focus the last
-    -- if one of the windows is currently focused, focus it instead
     self._windows[1]:focus()
 
     -- then raise the rest of them.
     for i = #self._windows, 2, -1 do
       local win = self._windows[i]
       print(win)
-        win:raise()
+      win:raise()
     end
 
     -- then, focus the front most
     self._windows[1]:focus()
 
     -- set up watchers, state management
-    self:_startWatcher()
     self._upTop = true
 
   else
@@ -167,8 +176,11 @@ function WindowSet:focus()
     table.insert(self._windows, frontMost)
 
     self._currentRaise = self._windows[1]
-
     self._windows[1]:focus()
+
+    -- update Real order.
+
+    self:_bringRealToTop(self._currentRaise)
 
   end
 
@@ -186,27 +198,40 @@ function WindowSet:_startWatcher()
       print("Focused: " .. window:title())
 
       if self:_contains(window) then
+        -- if we click on a window that's in the set...
+        -- Update our orderings. -- we can always update real ordering...
+        -- can we update cycle order as well?
 
+        -- cycle order is updated when cycling, I think.
+        -- if you click on a window though, we should probably reset the whole order?
+        -- other option?
+        -- just put that one on the end of the cycle order?
+        -- nah, we should reset.
         -- we have to check that it's not being focused by a button switch
+        self:_bringRealToTop(window)
+
         if self._currentRaise ~= nil and window:id() == self._currentRaise:id() then
           print("No need to do anything here.")
           self._currentRaise = nil
         else
-          print("focused one we matched")
-          local shouldCycle = self:_resetOrder()
-          if not shouldCycle then
-            print("Uh OH, we should all still be on top, yo")
+          -- reset the current order
+
+          self._windows = {}
+          for i, win in ipairs(self._realOrder) do
+            table.insert(self._windows, win)
           end
         end
       else
         print("Clearing the watchers.")
         self._upTop = false
-        self:_stopWatcher()
       end
 
   end
 
+  print("WELL")
   hs.window.filter.default:subscribe(hs.window.filter.windowFocused, self._watcherfn)
+  print("SUBSCRIBED")
+  print("Does this do new windows?")
 
 end
 
@@ -275,12 +300,33 @@ end
 
 function WindowSet:_contains(win)
 
+  print(self)
+
   for i, setWin in ipairs(self._windows) do
     if setWin:id() == win:id() then
       return true
     end
   end
   return false
+end
+
+function WindowSet:_bringRealToTop(window)
+
+  local extantIndex = nil
+  for i, win in ipairs(self._realOrder) do
+    if win:id() == window:id() then
+      extantIndex = i
+      break
+    end
+  end
+
+  if extantIndex == nil then
+    print("WOAH THERE Gotta be in both all the time!")
+  else
+    table.remove(self._realOrder, extantIndex)
+    table.insert(self._realOrder, self._currentRaise, 1)
+  end
+
 end
 
 
