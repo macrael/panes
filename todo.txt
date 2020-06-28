@@ -131,6 +131,9 @@ can watch windows for changes. keep track of which one was last frontmost...
 Write a test that just loads some window groups on reload.
 
 
+HA this might be the same thing 
+_ https://github.com/selectnull/hammerspoon-alttab
+
 
 
 HS TOOLS
@@ -138,3 +141,11 @@ https://www.hammerspoon.org/docs/hs.expose.html lets you show thumbnails of wind
 https://www.hammerspoon.org/docs/hs.layout.html
 https://www.hammerspoon.org/docs/hs.menubar.html
 https://www.hammerspoon.org/docs/hs.settings.html
+
+
+https://github.com/miromannino/miro-windows-manager
+
+
+
+* maybe use this to turn off bluetooth on sleep https://gist.github.com/ysimonson/fea48ee8a68ed2cbac12473e87134f58
+

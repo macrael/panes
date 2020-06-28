@@ -1,4 +1,3 @@
-print("IN INIT")
 
 Panes = {}
 
@@ -35,35 +34,26 @@ function Panes:addTopWindowToSet()
 	OneWindowSet:add(win)
 
   OneWindowSet:showIndicators()
-
-	print("ADDED")
 end
 
 
 function Panes:focusSet()
-	print("LO")
-
 	OneWindowSet:focus()
 end
 
 
 function Panes:showSet()
-
-	print("SHOWING")
-
 	OneWindowSet:showIndicators()
 
 end
 
 function Panes:removeTopWindowFromSet()
-	print("REMOVING")
   local win = hs.window.focusedWindow()
 	OneWindowSet:remove(win)
   OneWindowSet:showIndicators()
 end
 
 function Panes:removeAllWindowsFromSet()
-  print("REMOVING ALL")
   OneWindowSet:removeAll()
 end
 
